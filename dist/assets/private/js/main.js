@@ -1,0 +1,1 @@
+$(function(){return $(document).foundation(),console.log("hello admin")});

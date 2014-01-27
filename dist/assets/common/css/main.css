@@ -1,0 +1,1 @@
+@media screen and (min-width: 500px){.my-class{background-image:url("../images/image_test.jpg")}}@media screen and (min-width: 500px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 500px) and (min-resolution: 192dppx){.my-class{background-image:url("../images/image_test@2x.jpg");background-size:auto auto}}

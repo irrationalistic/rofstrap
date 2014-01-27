@@ -165,6 +165,9 @@ module.exports = (grunt) ->
           src: ['**/*.js']
           dest: '<%= config.dist %>/assets'
         }]
+      favicon:
+        files:
+          '<%= config.dist %>/assets/common/favicon.ico': '<%= config.src %>/assets/common/favicon.ico'
 
     ###
       Compile client-side jade templates
@@ -291,6 +294,7 @@ module.exports = (grunt) ->
           descriptions:
             'dev': 'Development task for watching, compiling, and testing files'
             'dist': 'Build task that compiles and minifies files'
+            'build': 'Alias for dist task'
             'test': 'Run client and server tests'
 
 
@@ -371,6 +375,7 @@ module.exports = (grunt) ->
     'clean:test'
     'clean:sass'
   ]
+  grunt.registerTask 'build', ['dist']
 
   grunt.registerTask 'test', [
     'clean:test'
