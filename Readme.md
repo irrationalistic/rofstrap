@@ -2,6 +2,8 @@
 
 Starter code that utilizes Node, Express, Grunt, Coffeescript, Sass or Stylus, Jade, Angular, and MongoDB. Server is run via Nodemon.
 
+The default system includes Foundation using Sass.
+
 Testing is performed with Karma and Jasmine on both front and backend.
 
 Separate angular SPA's for both public and private sections of the site, using passport for authentication.
