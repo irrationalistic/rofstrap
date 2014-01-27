@@ -34,7 +34,6 @@ module.exports = function(app) {
   app.use(express.compress({
     threshold: 0
   }));
-  app.use(express.staticCache());
   app.use('/public', express["static"](path.join(__dirname, '../../assets/public')));
   app.use('/common', express["static"](path.join(__dirname, '../../assets/common')));
   app.use('/components', express["static"](path.join(__dirname, '../../../bower_components')));

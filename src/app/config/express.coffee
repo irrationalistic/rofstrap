@@ -26,8 +26,7 @@ module.exports = (app)->
   require('../config/passport')(app)
 
   # SET UP PUBLIC AND PRIVATE STATIC FILES
-  app.use express.compress({threshold:0})
-  app.use express.staticCache()
+  app.use express.compress {threshold:0}
   app.use '/public', express.static(path.join(__dirname, '../../assets/public'))
   app.use '/common', express.static(path.join(__dirname, '../../assets/common'))
   app.use '/components', express.static(path.join(__dirname, '../../../bower_components'))

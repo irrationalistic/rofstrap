@@ -1,4 +1,4 @@
-var app, express, http, path;
+var app, express, http, path, port;
 
 express = require('express');
 
@@ -14,6 +14,8 @@ require('./config/mongoose')(app);
 
 require('./config/express')(app);
 
-http.createServer(app).listen(app.get('port'), function() {
-  return console.log('Express server listening on port ' + app.get('port'));
+port = app.get('port');
+
+http.createServer(app).listen(port, function() {
+  return console.log("Express server listening on port " + port);
 });

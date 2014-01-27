@@ -13,3 +13,24 @@
     @include at2x('../images/image_test','.jpg', auto, auto);
   }
 }
+
+
+// ngProgress styles
+#ngProgress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  body.f-topbar-fixed & {
+    top: 45px;
+  }
+
+  // override js-set styles
+  #ngProgress {
+    $color: #008cba;
+    color: $color !important;
+    background-color: $color !important;
+    height: 4px !important;
+    transition: width 0.2s;
+  }
+}

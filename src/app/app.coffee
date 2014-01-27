@@ -14,5 +14,6 @@ require('./config/mongoose')(app)
 require('./config/express')(app)
 
 # START SERVER
-http.createServer(app).listen app.get('port'), () ->
-  console.log 'Express server listening on port ' + app.get('port')
+port = app.get 'port'
+http.createServer(app).listen port, () ->
+  console.log "Express server listening on port #{port}"
