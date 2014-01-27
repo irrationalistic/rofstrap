@@ -6,6 +6,8 @@ http = require('http');
 
 path = require('path');
 
+console.log = (global.process.env.NODE_ENV != null) && global.process.env.NODE_ENV === 'production' ? function() {} : console.log;
+
 app = module.exports = express();
 
 require('./config/mongoose')(app);
