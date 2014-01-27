@@ -1,0 +1,15 @@
+@mixin at2x($image_name, $extension, $w: auto, $h: auto) {
+  background-image: url($image_name + $extension);
+  $x2img : $image_name + '@2x' + $extension;
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dppx) {
+    background-image: url($x2img);
+    background-size: $w $h;
+  }
+}
+
+@media screen and (min-width:500px) {
+  .my-class {
+    @include at2x('../images/image_test','.jpg', auto, auto);
+  }
+}

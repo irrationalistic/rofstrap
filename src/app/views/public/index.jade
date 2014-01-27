@@ -1,0 +1,19 @@
+extends ../common/layout
+
+block header
+  .fixed.contain-to-grid
+    .top-bar(data-topbar)
+      ul.title-area
+        li.name
+          h1: a(href='/', target='_self') My Site
+        li.toggle-topbar.menu-icon: a(href='#') Menu
+      section.top-bar-section
+        ul.right
+          li.active: a(href='/', target='_self') Home
+          li: a(href='/admin', target='_self') Admin
+
+block content
+  .row
+    h1 <i class="fi-html5"></i> Hello World!
+    a.ui.button.blue(href='/admin', target='_self') Admin
+    div(ng-view)
