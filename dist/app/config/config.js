@@ -9,7 +9,8 @@ config = {
     env: 'staging'
   },
   production: {
-    env: 'production'
+    env: 'production',
+    dbURI: global.process.env.MONGOHQ_URL
   }
 };
 
