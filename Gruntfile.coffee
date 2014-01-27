@@ -42,27 +42,23 @@ module.exports = (grunt) ->
         options:
           sourceMap: false
         files: [
-          {
-            expand: true
-            cwd: '<%= config.src %>/assets'
-            src: ['**/*.coffee', '!*/js/angular/**/*.coffee']
-            dest: '<%= config.tempmin %>/assets'
-            ext: '.js'
-          }
-          {
-            expand: true
-            cwd: '<%= config.src %>/assets/public/js/angular'
-            src: ['**/*.coffee']
-            dest: '<%= config.tempmin %>/assets/public/js/angular'
-            ext: '.js'
-          }
-          {
-            expand: true
-            cwd: '<%= config.src %>/assets/private/js/angular'
-            src: ['**/*.coffee']
-            dest: '<%= config.tempmin %>/assets/private/js/angular'
-            ext: '.js'
-          }
+          expand: true
+          cwd: '<%= config.src %>/assets'
+          src: ['**/*.coffee', '!*/js/angular/**/*.coffee']
+          dest: '<%= config.tempmin %>/assets'
+          ext: '.js'
+        ,
+          expand: true
+          cwd: '<%= config.src %>/assets/public/js/angular'
+          src: ['**/*.coffee']
+          dest: '<%= config.tempmin %>/assets/public/js/angular'
+          ext: '.js'
+        ,
+          expand: true
+          cwd: '<%= config.src %>/assets/private/js/angular'
+          src: ['**/*.coffee']
+          dest: '<%= config.tempmin %>/assets/private/js/angular'
+          ext: '.js'
         ]
       server:
         options:
@@ -77,13 +73,13 @@ module.exports = (grunt) ->
       test:
         options:
           sourceMap: false
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/test'
           src: ['**/*.coffee']
           dest: '<%= config.test %>'
           ext: '.js'
-        }]
+        ]
 
     ###
       Compile stylus files, ignore files that
@@ -91,13 +87,13 @@ module.exports = (grunt) ->
     ###
     stylus:
       dev:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/assets'
           src: ['**/*.styl', '!**/_*.styl', '!vendor/**/*.stl']
           dest: '<%= config.dist %>/assets'
           ext: '.css'
-        }]
+        ]
         options:
           compress: false
           linenos: true
@@ -113,13 +109,13 @@ module.exports = (grunt) ->
     ###
     sass:
       dev:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/assets'
           src: ['**/*.{scss,sass}', '!**/_*.{scss,sass}', '!vendor/**/*.{scss,sass}']
           dest: '<%= config.dist %>/assets'
           ext: '.css'
-        }]
+        ]
         options:
           compass: true
           style: 'expanded'
@@ -142,15 +138,14 @@ module.exports = (grunt) ->
     uglify:
       dist:
         files: [
-          {
             expand: true
             cwd: '<%= config.tempugl %>'
             src: ['**/*.js', '!assets/*/js/angular/**/*.js']
             dest: '<%= config.dist %>'
             ext: '.js'
-          }
-          '<%= config.dist %>/assets/public/js/angular/app.js': '<%= config.tempugl %>/assets/public/js/angular/**/*.js'
-          '<%= config.dist %>/assets/private/js/angular/app.js': '<%= config.tempugl %>/assets/private/js/angular/**/*.js'
+          ,
+            '<%= config.dist %>/assets/public/js/angular/app.js': '<%= config.tempugl %>/assets/public/js/angular/**/*.js'
+            '<%= config.dist %>/assets/private/js/angular/app.js': '<%= config.tempugl %>/assets/private/js/angular/**/*.js'
         ]
 
     ###
@@ -159,12 +154,12 @@ module.exports = (grunt) ->
     ###
     copy:
       js:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/assets'
           src: ['**/*.js']
           dest: '<%= config.dist %>/assets'
-        }]
+        ]
       favicon:
         files:
           '<%= config.dist %>/assets/common/favicon.ico': '<%= config.src %>/assets/common/favicon.ico'
@@ -174,26 +169,26 @@ module.exports = (grunt) ->
     ###
     jade:
       angular:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/assets'
           src: ['**/*.jade']
           dest: '<%= config.dist %>/assets'
           ext: '.html'
-        }]
+        ]
 
     ###
       Prep angular files for minification
     ###
     ngmin:
       dist:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.tempmin %>'
           src: ['**/*.js']
           dest: '<%= config.tempugl %>'
           ext: '.js'
-        }]
+        ]
 
     ###
       Run client unit tests
@@ -272,12 +267,12 @@ module.exports = (grunt) ->
     ###
     imagemin:
       dist:
-        files: [{
+        files: [
           expand: true
           cwd: '<%= config.src %>/assets'
           src: ['**/*.{png,jpg,gif}']
           dest: '<%= config.dist %>/assets'
-        }]
+        ]
       options:
         cache: false
 
@@ -292,10 +287,10 @@ module.exports = (grunt) ->
           filter: 'include'
           tasks: ['dev', 'dist', 'test']
           descriptions:
-            'dev': 'Development task for watching, compiling, and testing files'
-            'dist': 'Build task that compiles and minifies files'
-            'build': 'Alias for dist task'
-            'test': 'Run client and server tests'
+            'dev':    'Development task for watching, compiling, and testing files'
+            'dist':   'Build task that compiles and minifies files'
+            'build':  'Alias for dist task'
+            'test':   'Run client and server tests'
 
 
     ###
