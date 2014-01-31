@@ -58,16 +58,12 @@ html.no-js(ng-app='#{ngApp}')
 
     block footerScripts
 
-    <!-- @if production=false -->
+    <!-- build:js /#{assetPath}/js/angular/app.js -->
     script(type='text/javascript', src='/#{assetPath}/js/angular/controllers/controllers.js')
     script(type='text/javascript', src='/#{assetPath}/js/angular/filters/filters.js')
     script(type='text/javascript', src='/#{assetPath}/js/angular/services/services.js')
     script(type='text/javascript', src='/#{assetPath}/js/angular/app.js')
-    <!-- @endif -->
-
-    <!-- @if production=true -->
-    script(type='text/javascript', src='/#{assetPath}/js/angular/app.js')
-    <!-- @endif -->
+    <!-- endbuild -->
 
 
     //- Google Analytics: change UA-XXXXX-X to be your site's ID.

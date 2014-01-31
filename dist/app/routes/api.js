@@ -1,3 +1,1 @@
-module.exports.index = function(req, res) {
-  return res.send('Hello World');
-};
+module.exports.index=function(e,n){return n.send("Hello World")};
