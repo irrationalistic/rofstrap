@@ -19,8 +19,7 @@
     "mongoose": "~3.8.0",
     "passport-local": "~0.1.6",
     "bcrypt": "~0.7.7",
-    "connect-flash": "~0.1.1",
-    "bower": "~1.2.8"
+    "connect-flash": "~0.1.1"
   },
   "devDependencies": {
     "matchdep": "~0.3.0",
