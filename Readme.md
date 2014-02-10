@@ -1,8 +1,8 @@
 # Rofstrap
 
-Starter code that utilizes Node, Express, Grunt, Coffeescript, Sass or Stylus, Jade, Angular, and MongoDB. Server is run via Nodemon.
+Starter code that utilizes Node, Express, Grunt, Coffeescript, Sass and Stylus, Jade, Angular, and MongoDB. Server is run via Nodemon.
 
-The default system includes Foundation using Sass.
+The default system includes Bootstrap 3 using Sass.
 
 Testing is performed with Karma and Jasmine on both front and backend.
 
