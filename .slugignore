@@ -3,3 +3,4 @@ Gruntfile.coffee
 karma.conf.coffee
 .test
 .sass-cache
+bower.json
