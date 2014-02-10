@@ -51,8 +51,15 @@ html.no-js(ng-app='#{ngApp}')
     script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/swipe/2.0/swipe.min.js')
     script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.10/fastclick.min.js')
     script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js')
-    script(type='text/javascript', src='/components/ngprogress/build/ngProgress.min.js')
-    script(type='text/javascript', src='/components/bootstrap-sass/dist/js/bootstrap.min.js')
+    <!-- @if production=false -->
+    //-<!-- build:js dist/assets/common/js/vendor/components.js -->
+    script(type='text/javascript', src='../../../../bower_components/ngprogress/build/ngProgress.min.js')
+    script(type='text/javascript', src='../../../../bower_components/bootstrap-sass/dist/js/bootstrap.min.js')
+    //-<!-- endbuild -->
+    <!-- @endif -->
+    <!-- @if production=true -->
+    script(type='text/javascript', src='/common/js/vendor/components.js')
+    <!-- @endif -->
     script(type='text/javascript', src='/common/js/utility.js')
     script(type='text/javascript', src='/#{assetPath}/js/main.js')
 

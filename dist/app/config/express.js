@@ -36,7 +36,7 @@ module.exports = function(app) {
   }));
   app.use('/public', express["static"](path.join(__dirname, '../../assets/public')));
   app.use('/common', express["static"](path.join(__dirname, '../../assets/common')));
-  app.use('/components', express["static"](path.join(__dirname, '../../../bower_components')));
+  app.use('/bower_components', express["static"](path.join(__dirname, '../../../bower_components')));
   app.use(function(req, res, next) {
     if (req.url.match(/^\/private\//)) {
       if (req.isAuthenticated()) {

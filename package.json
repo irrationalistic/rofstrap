@@ -7,8 +7,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "node dist/server.js",
-    "postinstall": "bower install"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "when": "~2.5.1",
@@ -59,6 +58,9 @@
     "growl": "~1.7.0",
     "karma-osx-reporter": "0.0.4",
     "supertest": "~0.8.1",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "usemin-patterns": "~0.1.4",
+    "grunt-usemin": "~2.0.2",
+    "grunt-jade-usemin": "~0.2.10"
   }
 }

@@ -1,4 +1,5 @@
 request = require 'supertest'
+process.env.PORT = 4444
 app = require '../../dist/app/app'
 
 describe 'Server', ()->

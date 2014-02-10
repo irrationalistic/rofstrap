@@ -1,5 +1,6 @@
 module.exports = (grunt) ->
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+
   config =
     dist: 'dist'
     src: 'src'
@@ -214,16 +215,20 @@ module.exports = (grunt) ->
         tasks: ['nodemon', 'watch', 'open']
         options:
           logConcurrentOutput: true
-      dist:
+      distCoffee:
         tasks: [
           'coffee:dist'
           'coffee:server'
+        ]
+      distStyles:
+        tasks: [
           'stylus:dist'
           'sass:dist'
-          'copy'
-          'jade'
-          'preprocess:dist'
         ]
+      distOther: [
+        'copy'
+        'jade'
+      ]
 
     ###
       Open the browser
@@ -261,6 +266,17 @@ module.exports = (grunt) ->
           context:
             production: true
 
+    ###
+      Look for combinable scripts in jade files
+    ###
+    useminPrepare:
+        html: '<%= config.src %>/app/views/**/*.jade'
+        options:
+            dest: '.'
+            flow:
+              steps:
+                'js': ['concat']
+              post: []
 
     ###
       Minify and optimize images
@@ -329,7 +345,7 @@ module.exports = (grunt) ->
 
       preprocess:
         files: ['<%= config.src %>/app/views/**/*.jade']
-        tasks: ['newer:preprocess:dev']
+        tasks: ['newer:preprocess:dev', 'useminPrepare', 'concat']
 
       copyJS:
         files: ['<%= config.src %>/assets/**/*.js']
@@ -354,12 +370,19 @@ module.exports = (grunt) ->
     'copy'
     'jade'
     'preprocess:dev'
+    'useminPrepare'
+    'concat'
     'concurrent:dev'
   ]
 
   grunt.registerTask 'dist', [
     'clean'
-    'concurrent:dist'
+    'concurrent:distCoffee'
+    'concurrent:distStyles'
+    'concurrent:distOther'
+    'preprocess:dist'
+    'useminPrepare'
+    'concat'
     'ngmin'
     'uglify'
     'clean:temp'
@@ -379,5 +402,7 @@ module.exports = (grunt) ->
     'karma'
     'jasmine_node'
   ]
+
+  grunt.registerTask 'umin', ['useminPrepare:html', 'concat', 'preprocess']
 
   grunt.registerTask 'default', 'availabletasks'
