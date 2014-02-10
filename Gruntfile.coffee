@@ -403,6 +403,4 @@ module.exports = (grunt) ->
     'jasmine_node'
   ]
 
-  grunt.registerTask 'umin', ['useminPrepare:html', 'concat', 'preprocess']
-
   grunt.registerTask 'default', 'availabletasks'
