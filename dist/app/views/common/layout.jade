@@ -16,8 +16,8 @@ html.no-js(ng-app='#{ngApp}')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='icon', href='/common/favicon.ico')
     link(rel='stylesheet', type='text/css', href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:400italic,400,700,300')
-    link(rel='stylesheet', type='text/css', href='/common/css/foundation.css')
-    link(rel='stylesheet', type='text/css', href='//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css')
+    link(rel='stylesheet', type='text/css', href='/common/css/bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css')
     link(rel='stylesheet', type='text/css', href='/common/css/main.css')
     link(rel='stylesheet', type='text/css', href='/#{assetPath}/css/main.css')
     script(type='text/javascript', src='/common/js/vendor/modernizr.js')
@@ -31,7 +31,7 @@ html.no-js(ng-app='#{ngApp}')
         | You are using an <strong>outdated</strong> browser.
         | Please <a href='http://browsehappy.com/'>upgrade your browser</a>
         | to improve your experience.
-
+   
     block content
 
     block footer
@@ -52,15 +52,13 @@ html.no-js(ng-app='#{ngApp}')
     script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.10/fastclick.min.js')
     script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js')
     script(type='text/javascript', src='/components/ngprogress/build/ngProgress.min.js')
-    script(type='text/javascript', src='/components/foundation/js/foundation.min.js')
+    script(type='text/javascript', src='/components/bootstrap-sass/dist/js/bootstrap.min.js')
     script(type='text/javascript', src='/common/js/utility.js')
     script(type='text/javascript', src='/#{assetPath}/js/main.js')
 
     block footerScripts
 
-    <script src="/#{assetPath}/js/angular/app.js"></script>
-
-
+    script(type='text/javascript', src='/#{assetPath}/js/angular/app.js')
     //- Google Analytics: change UA-XXXXX-X to be your site's ID.
     //-
       script.

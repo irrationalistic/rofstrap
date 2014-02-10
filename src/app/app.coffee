@@ -15,5 +15,6 @@ require('./config/express')(app)
 
 # START SERVER
 port = app.get 'port'
+
 http.createServer(app).listen port, () ->
-  console.log "Express server listening on port #{port}"
+    console.log "Express server listening on port #{port}"

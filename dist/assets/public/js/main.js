@@ -1,1 +1,1 @@
-$(function(){return $(document).foundation(),console.log("hello world")});
+$(function(){return console.log("hello world")});

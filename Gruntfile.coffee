@@ -121,8 +121,7 @@ module.exports = (grunt) ->
           style: 'expanded'
           lineNumbers: true
           loadPath: [
-            'bower_components/foundation/scss'
-            'bower_components/foundation-icons/'
+            'bower_components/bootstrap-sass/lib/'
           ]
       dist:
         files: '<%= sass.dev.files %>'
@@ -205,6 +204,7 @@ module.exports = (grunt) ->
     jasmine_node:
       projectRoot: '<%= config.test %>/server'
       growl: true
+
 
     ###
       Run tasks concurrently

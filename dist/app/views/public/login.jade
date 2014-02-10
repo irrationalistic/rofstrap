@@ -4,16 +4,15 @@ block headerScripts
   link(rel='stylesheet', type='text/css', href='/public/css/login.css')
 
 block content
-  div#loginbox.panel
-    h1 Login
+  .container
     form(action='/admin/login', method='post')
-      div.row
-        .column.col-12
-          input.ui.input(type='text', name='username', placeholder='Username')
-      div.row
-        .column.col-12
-          input.ui.input(type='password', name='password', placeholder='Password')
-      div.row
-        .column.col-12
-          input.ui.button.blue.pull-right(type='submit', value='Log In')
-          a.ui.link.red.pull-right(href='/') cancel
+      div#loginbox.panel.panel-default
+        .panel-heading Login
+        .panel-body
+            div.form-group
+              input.form-control(type='text', name='username', placeholder='Username')
+            div.form-group
+              input.form-control(type='password', name='password', placeholder='Password')
+        .panel-footer
+          input.btn.btn-primary(type='submit', value='Log In')
+          a.btn.btn-link(href='/') cancel

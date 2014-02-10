@@ -1,1 +1,55 @@
-var SALT_WORK_FACTOR,User,bcrypt,mongoose,userSchema;mongoose=require("mongoose"),bcrypt=require("bcrypt"),SALT_WORK_FACTOR=10,userSchema=mongoose.Schema({username:{type:String,required:!0,unique:!0},email:{type:String,required:!0,unique:!0},password:{type:String,required:!0}}),userSchema.pre("save",function(e){var r;return r=this,r.isModified("password")?bcrypt.genSalt(SALT_WORK_FACTOR,function(o,s){return o?e(o):bcrypt.hash(r.password,s,function(o,s){return o?e(o):(r.password=s,e())})}):e()}),userSchema.methods.comparePassword=function(e,r){return bcrypt.compare(e,this.password,function(e,o){return e?r(e):r(null,o)})},module.exports=User=mongoose.model("User",userSchema);
+var SALT_WORK_FACTOR, User, bcrypt, mongoose, userSchema;
+
+mongoose = require('mongoose');
+
+bcrypt = require('bcrypt');
+
+SALT_WORK_FACTOR = 10;
+
+userSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
+
+userSchema.pre('save', function(next) {
+  var user;
+  user = this;
+  if (!user.isModified('password')) {
+    return next();
+  }
+  return bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    if (err) {
+      return next(err);
+    }
+    return bcrypt.hash(user.password, salt, function(err, hash) {
+      if (err) {
+        return next(err);
+      }
+      user.password = hash;
+      return next();
+    });
+  });
+});
+
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+  return bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) {
+      return cb(err);
+    }
+    return cb(null, isMatch);
+  });
+};
+
+module.exports = User = mongoose.model('User', userSchema);

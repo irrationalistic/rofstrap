@@ -4,7 +4,7 @@ App = window.App = angular.module('myApp',
   $routeProvider
     .when '/',
       controller: 'IndexController'
-      templateUrl: '/public/js/angular/partials/partial1.html'
+      templateUrl: '/public/js/angular/partials/home.html'
     .otherwise
       redirectTo: '/'
   $locationProvider.html5Mode true

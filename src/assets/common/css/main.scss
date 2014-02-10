@@ -21,9 +21,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  body.f-topbar-fixed & {
-    top: 45px;
-  }
+  // body.f-topbar-fixed & {
+    top: 50px;
+  // }
 
   // override js-set styles
   #ngProgress {

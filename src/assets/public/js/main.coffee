@@ -1,3 +1,3 @@
 $ ->
-  $(document).foundation()
+  # $(document).foundation()
   console.log 'hello world'

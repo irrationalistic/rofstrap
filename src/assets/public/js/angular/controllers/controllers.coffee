@@ -1,6 +1,5 @@
 angular.module('myApp.controllers', [])
   .controller 'IndexController', ($scope, $timeout, ngProgress)->
-    # ngProgress.color('#E96633')
     ngProgress.start()
     $timeout(
       ()->

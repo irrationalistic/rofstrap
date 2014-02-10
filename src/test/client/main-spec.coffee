@@ -1,17 +1,3 @@
-describe 'Array', ()->
-  describe '#indexOf()', ()->
-    it 'should return -1 when the value is not present', ()->
-      expect(1).toEqual(1)
-      expect(2).toEqual(2)
-
-describe 'Utility', ()->
-  describe '#console', ()->
-    it 'should always have a console', ()->
-      window.console = undefined
-      expect(window.console).toBeUndefined()
-      fixConsole()
-      expect(window.console).not.toBeUndefined()
-
 describe 'Client App', ()->
   beforeEach module('myApp')
 
