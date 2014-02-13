@@ -1,5 +1,5 @@
 angular.module('myApp.controllers', [])
-  .controller 'IndexController', ($scope, $timeout, ngProgress)->
+  .controller 'IndexController', ($scope, $timeout, $log, ngProgress)->
     ngProgress.start()
     $timeout(
       ()->

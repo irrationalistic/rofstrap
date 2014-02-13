@@ -1,218 +1,27 @@
-module.exports = (grunt) ->
+path = require 'path'
+
+module.exports = (grunt)->
+  _ = grunt.util._
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+  config = require('./tasks/config.coffee')
 
-  config =
-    dist: 'dist'
-    src: 'src'
-    test: '.test'
-    temp: '.tmp'
-    tempmin: '.tmp/ngmin'
-    tempugl: '.tmp/uglify'
-    sassCache: '.sass-cache'
-
-  grunt.initConfig
+  gruntConfig = _.extend {},
     config: config
-    pkg: grunt.file.readJSON 'package.json'
-
-    ###
-      Clean out all directories
-    ###
-    clean:
-      dist: '<%= config.dist %>'
-      temp: '<%= config.temp %>'
-      test: '<%= config.test %>'
-      sass: '<%= config.sassCache %>'
-
-    ###
-      Compile coffee to js
-    ###
-    coffee:
-      options:
-        bare: true
-      dev:
+    availabletasks:
+      tasks:
         options:
-          sourceMap: true
-        files: [{
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.coffee']
-          dest: '<%= config.dist %>/assets'
-          ext: '.js'
-        }]
-      dist:
-        options:
-          sourceMap: false
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.coffee', '!*/js/angular/**/*.coffee']
-          dest: '<%= config.tempmin %>/assets'
-          ext: '.js'
-        ,
-          expand: true
-          cwd: '<%= config.src %>/assets/public/js/angular'
-          src: ['**/*.coffee']
-          dest: '<%= config.tempmin %>/assets/public/js/angular'
-          ext: '.js'
-        ,
-          expand: true
-          cwd: '<%= config.src %>/assets/private/js/angular'
-          src: ['**/*.coffee']
-          dest: '<%= config.tempmin %>/assets/private/js/angular'
-          ext: '.js'
-        ]
-      server:
-        options:
-          sourceMap: false
-        files: [{
-          expand: true
-          cwd: '<%= config.src %>'
-          src: ['app/**/*.coffee', 'server.coffee']
-          dest: '<%= config.dist %>'
-          ext: '.js'
-        }]
-      test:
-        options:
-          sourceMap: false
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/test'
-          src: ['**/*.coffee']
-          dest: '<%= config.test %>'
-          ext: '.js'
-        ]
-
-    ###
-      Compile stylus files, ignore files that
-      start with '_'
-    ###
-    stylus:
-      dev:
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.styl', '!**/_*.styl', '!vendor/**/*.stl']
-          dest: '<%= config.dist %>/assets'
-          ext: '.css'
-        ]
-        options:
-          compress: false
-          linenos: true
-      dist:
-        files: '<%= stylus.dev.files %>'
-        options:
-          compress: true
-          linenos: false
-
-    ###
-      Compile scss/sass files, ignore files that
-      start with '_'
-    ###
-    sass:
-      dev:
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.{scss,sass}', '!**/_*.{scss,sass}', '!vendor/**/*.{scss,sass}']
-          dest: '<%= config.dist %>/assets'
-          ext: '.css'
-        ]
-        options:
-          compass: true
-          style: 'expanded'
-          lineNumbers: true
-          loadPath: [
-            'bower_components/bootstrap-sass/lib/'
-          ]
-      dist:
-        files: '<%= sass.dev.files %>'
-        options:
-          compass: true
-          style: 'compressed'
-          lineNumbers: false
-          loadPath: '<%= sass.dev.options.loadPath %>'
-
-    ###
-      Minify client-side JS
-    ###
-    uglify:
-      dist:
-        files: [
-            expand: true
-            cwd: '<%= config.tempugl %>'
-            src: ['**/*.js', '!assets/*/js/angular/**/*.js']
-            dest: '<%= config.dist %>'
-            ext: '.js'
-          ,
-            '<%= config.dist %>/assets/public/js/angular/app.js': '<%= config.tempugl %>/assets/public/js/angular/**/*.js'
-            '<%= config.dist %>/assets/private/js/angular/app.js': '<%= config.tempugl %>/assets/private/js/angular/**/*.js'
-        ]
-
-    ###
-      Copy all essential, but non-compiled
-      files
-    ###
-    copy:
-      js:
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.js']
-          dest: '<%= config.dist %>/assets'
-        ]
-      favicon:
-        files:
-          '<%= config.dist %>/assets/common/favicon.ico': '<%= config.src %>/assets/common/favicon.ico'
-
-    ###
-      Compile client-side jade templates
-    ###
-    jade:
-      angular:
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.jade']
-          dest: '<%= config.dist %>/assets'
-          ext: '.html'
-        ]
-
-    ###
-      Prep angular files for minification
-    ###
-    ngmin:
-      dist:
-        files: [
-          expand: true
-          cwd: '<%= config.tempmin %>'
-          src: ['**/*.js']
-          dest: '<%= config.tempugl %>'
-          ext: '.js'
-        ]
-
-    ###
-      Run client unit tests
-    ###
-    karma:
-      dist:
-        configFile: 'karma.conf.coffee'
-        singleRun: true
-        browsers: ['PhantomJS']
-
-    ###
-      Run server unit tests
-    ###
-    jasmine_node:
-      projectRoot: '<%= config.test %>/server'
-      growl: true
-
-
-    ###
-      Run tasks concurrently
-    ###
+          sort: false
+          filter: 'include'
+          tasks: ['dev', 'dist', 'test']
+          descriptions:
+            'dev':    'Development task for watching, compiling, and testing files'
+            'dist':   'Build task that compiles and minifies files'
+            'build':  'Alias for dist task'
+            'test':   'Run client and server tests'
+    
     concurrent:
       dev:
-        tasks: ['nodemon', 'watch', 'open']
+        tasks: ['nodemon', 'watch']
         options:
           logConcurrentOutput: true
       distCoffee:
@@ -229,89 +38,7 @@ module.exports = (grunt) ->
         'copy'
         'jade'
       ]
-
-    ###
-      Open the browser
-    ###
-    open:
-      dev:
-        path: 'http://localhost:3000'
-
-    ###
-      Run nodemon
-    ###
-    nodemon:
-      dev:
-        options:
-          file: './<%= config.dist %>/server.js'
-          watchedFolders: ['dist/app']
-
-    ###
-      Preprocess server-side jade templates
-    ###
-    preprocess:
-      dev:
-        files: [{
-          expand: true
-          cwd: '<%= config.src %>/app/views'
-          src: ['**/*.jade']
-          dest: '<%= config.dist %>/app/views'
-        }]
-        options:
-          context:
-            production: false
-      dist:
-        files: '<%= preprocess.dev.files %>'
-        options:
-          context:
-            production: true
-
-    ###
-      Look for combinable scripts in jade files
-    ###
-    useminPrepare:
-        html: '<%= config.src %>/app/views/**/*.jade'
-        options:
-            dest: '.'
-            flow:
-              steps:
-                'js': ['concat']
-              post: []
-
-    ###
-      Minify and optimize images
-    ###
-    imagemin:
-      dist:
-        files: [
-          expand: true
-          cwd: '<%= config.src %>/assets'
-          src: ['**/*.{png,jpg,gif}']
-          dest: '<%= config.dist %>/assets'
-        ]
-      options:
-        cache: false
-
-
-    ###
-      List all available tasks
-    ###
-    availabletasks:
-      tasks:
-        options:
-          sort: false
-          filter: 'include'
-          tasks: ['dev', 'dist', 'test']
-          descriptions:
-            'dev':    'Development task for watching, compiling, and testing files'
-            'dist':   'Build task that compiles and minifies files'
-            'build':  'Alias for dist task'
-            'test':   'Run client and server tests'
-
-
-    ###
-      Watch for file changes
-    ###
+  
     watch:
       options:
         livereload: true
@@ -352,55 +79,47 @@ module.exports = (grunt) ->
         tasks: ['newer:copy:js']
 
       jadeAngular:
-        files: ['<%= config.src %>/assets/js/angular/**/*.jade']
+        files: ['<%= config.src %>/assets/*/js/angular/**/*.jade']
         tasks: ['newer:jade:angular']
 
       imagemin:
         files: ['<%= config.src %>/assets/*/images/*']
         tasks: ['newer:imagemin:dist']
+  ,
+    require('load-grunt-config') grunt,
+      configPath: path.join(__dirname, 'tasks/options')
+      init: true
+
 
   grunt.registerTask 'dev', [
     'clean'
-    'coffee:dev'
-    'coffee:server'
-    'coffee:test'
-    'stylus:dev'
-    'sass:dev'
-    'imagemin:dist'
-    'copy'
-    'jade'
-    'preprocess:dev'
-    'useminPrepare'
-    'concat'
+    'coffee:dev', 'coffee:server', 'coffee:test'
+    'stylus:dev', 'sass:dev'
+    'imagemin:dist', 'copy'
+    'jade', 'preprocess:dev', 'useminPrepare', 'concat'
     'concurrent:dev'
   ]
 
   grunt.registerTask 'dist', [
     'clean'
-    'concurrent:distCoffee'
-    'concurrent:distStyles'
-    'concurrent:distOther'
-    'preprocess:dist'
-    'useminPrepare'
-    'concat'
-    'ngmin'
-    'uglify'
+    'concurrent:distCoffee', 'concurrent:distStyles', 'concurrent:distOther'
+    'preprocess:dist', 'useminPrepare', 'concat'
+    'ngmin', 'uglify'
     'clean:temp'
     'imagemin:dist'
-    'coffee:test'
-    'karma'
-    'jasmine_node'
-    'clean:test'
-    'clean:sass'
+    'coffee:test', 'karma', 'jasmine_node'
+    'clean:test', 'clean:sass'
   ]
+
   grunt.registerTask 'build', ['dist']
 
   grunt.registerTask 'test', [
     'clean:test'
-    'coffee:test'
-    'coffee:dev'
-    'karma'
-    'jasmine_node'
+    'coffee:test', 'coffee:dev'
+    'karma', 'jasmine_node'
   ]
 
   grunt.registerTask 'default', 'availabletasks'
+
+
+  grunt.initConfig(gruntConfig)
