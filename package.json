@@ -58,6 +58,7 @@
     "supertest": "~0.8.1",
     "request": "~2.27.0",
     "grunt-usemin": "~2.0.2",
-    "load-grunt-config": "~0.7.0"
+    "load-grunt-config": "~0.7.0",
+    "open": "0.0.4"
   }
 }
